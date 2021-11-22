@@ -1,4 +1,4 @@
-/*! v.0.0.2 !*/
+/*! v.0.0.2d1 !*/
 
 bool connectToWiFi(const char *ssid, const char *pass){
     byte ei = 0;
@@ -52,27 +52,28 @@ bool connectToWiFiSc(const char *ssid, const char *pass, const char *host, const
     }
     HTTPClient http;
 
-    USE_SERIAL.print("[HTTP] begin...\n");
+    Serial.print("[HTTP] begin...\n");
     // configure traged server and url
     //http.begin("https://www.howsmyssl.com/a/check", ca); //HTTPS
     http.begin(host); //HTTP
-    USE_SERIAL.print("[HTTP] Post...\n");
+    Serial.print("[HTTP] Post...\n");
     // start connection and send HTTP header
-    int httpCode = http.Post(key);
+    int httpCode = http.POST(key);
     // httpCode will be negative on error
     if(httpCode > 0){
         // HTTP header has been send and Server response header has been handled
-        USE_SERIAL.printf("[HTTP] Post... code: %d\n", httpCode);
+        Serial.printf("[HTTP] Post... code: %d\n", httpCode);
         // file found at server
         if(httpCode == HTTP_CODE_OK){
             String payload = http.getString();
-            USE_SERIAL.println(payload);
+            Serial.println(payload);
         }
     }
     else{
-        USE_SERIAL.printf("[HTTP] Post... failed, error: %s\n", http.errorToString(httpCode).c_str());
+        Serial.printf("[HTTP] Post... failed, error: %s\n", http.errorToString(httpCode).c_str());
     }
     http.end();
+    
     Serial.print("\nConnected to ");
     Serial.println(WiFi.SSID());
     Serial.print("IP address: ");
