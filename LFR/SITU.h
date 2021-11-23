@@ -1,3 +1,7 @@
+/*
+*  4 sensors
+*/
+
 #define oooo   ((sen1 > light) && (sen2 > light) && (sen3 > light) && (sen4 > light))  //all white
 
 #define oooi   ((sen1 > light) && (sen2 > light) && (sen3 > light) && (sen4 < light))  //0 0 0 1
