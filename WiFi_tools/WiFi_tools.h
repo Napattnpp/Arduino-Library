@@ -1,4 +1,4 @@
-/*! v.0.0.2d1 !*/
+/*! v.0.0.2d2 !*/
 
 bool connectToWiFi(const char *ssid, const char *pass){
     byte ei = 0;
@@ -29,7 +29,7 @@ bool connectToWiFi(const char *ssid, const char *pass){
     return 1;
 }
 
-bool connectToWiFiSc(const char *ssid, const char *pass, const char *host, const char *key){
+bool connectToWiFiSc(char *ssid, char *pass, char *host, char *key){
     byte ei = 0;
 
     WiFi.mode(WIFI_STA);
