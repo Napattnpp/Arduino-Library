@@ -1,9 +1,23 @@
-/*! v.0.0.2d2 !*/
+/*! v.0.0.3 !*/
 
-bool connectToWiFi(const char *ssid, const char *pass){
+void sel_mode(byte mode){
+    Serial.print("WiFi mode: ");
+    if (mode == 0){Serial.println("Not define");}
+    else if (mode == 1){WiFi.mode(WIFI_STA); Serial.println("WIFI_STA");}
+    else if (mode == 2){WiFi.mode(WIFI_AP); Serial.println("WIFI_AP");}
+    else if (mode == 3){WiFi.mode(WIFI_AP_STA); Serial.println("WIFI_AP_STA");}
+}
+
+bool connectToWiFi(byte mode, const char *ssid, const char *pass){
     byte ei = 0;
 
-    WiFi.mode(WIFI_STA);
+    sel_mode(mode);
+    Serial.print("SSID: ");
+    Serial.println(ssid);
+
+    Serial.print("Password: ");
+    Serial.println(pass);
+
     WiFi.begin(ssid, pass);
     Serial.print("\nConnecting to ");
     Serial.println(ssid);
@@ -29,10 +43,16 @@ bool connectToWiFi(const char *ssid, const char *pass){
     return 1;
 }
 
-bool connectToWiFiSc(char *ssid, char *pass, char *host, char *key){
+bool connectToWiFiSc(byte mode, char *ssid, char *pass, char *host, char *key){
     byte ei = 0;
 
-    WiFi.mode(WIFI_STA);
+    sel_mode(mode);
+    Serial.print("SSID: ");
+    Serial.println(ssid);
+
+    Serial.print("Password: ");
+    Serial.println(pass);
+
     WiFi.begin(ssid, pass);
     Serial.print("\nConnecting to ");
     Serial.println(ssid);
