@@ -1,4 +1,4 @@
-/*! v.0.0.3 !*/
+/*! v.0.0.3d1 !*/
 
 void sel_mode(byte mode){
     Serial.print("WiFi mode: ");
