@@ -1,17 +1,17 @@
-/*! v.0.0.3d3 !*/
+/*! v.0.0.3d4 !*/
 
-void sel_mode(byte mode){
+void sel_mode(byte _mode){
     Serial.print("WiFi mode: ");
-    if (mode == 0){Serial.println("Not define");}
-    else if (mode == 1){WiFi.mode(WIFI_STA); Serial.println("WIFI_STA");}
-    else if (mode == 2){WiFi.mode(WIFI_AP); Serial.println("WIFI_AP");}
-    else if (mode == 3){WiFi.mode(WIFI_AP_STA); Serial.println("WIFI_AP_STA");}
+    if (_mode == 0){Serial.println("Not define");}
+    else if (_mode == 1){WiFi.mode(WIFI_STA); Serial.println("WIFI_STA");}
+    else if (_mode == 2){WiFi.mode(WIFI_AP); Serial.println("WIFI_AP");}
+    else if (_mode == 3){WiFi.mode(WIFI_AP_STA); Serial.println("WIFI_AP_STA");}
 }
 
-bool connectToWiFi(byte mode, const char *ssid, const char *pass){
+bool connectToWiFi(byte _mode, const char *ssid, const char *pass){
     byte ei = 0;
 
-    sel_mode(mode);
+    sel_mode(_mode);
     Serial.print("SSID: ");
     Serial.println(ssid);
 
@@ -43,10 +43,10 @@ bool connectToWiFi(byte mode, const char *ssid, const char *pass){
     return 1;
 }
 
-bool connectToWiFiSc(byte mode, char *ssid, char *pass, char *host, char *key){
+bool connectToWiFiSc(byte _mode, const char *ssid, const char *pass, const char *host, const char *key){
     byte ei = 0;
 
-    sel_mode(mode);
+    sel_mode(_mode);
     Serial.print("SSID: ");
     Serial.println(ssid);
 
