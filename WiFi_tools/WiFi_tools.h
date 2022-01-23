@@ -1,4 +1,9 @@
-/*! v.0.0.3d4 !*/
+/*! v.0.0.3d5 !*/
+
+/*
+*  #include <WiFi.h>
+*  #include <HTTPClient.h>
+*/
 
 void sel_mode(byte _mode){
     Serial.print("WiFi mode: ");
@@ -8,7 +13,7 @@ void sel_mode(byte _mode){
     else if (_mode == 3){WiFi.mode(WIFI_AP_STA); Serial.println("WIFI_AP_STA");}
 }
 
-bool connectToWiFi(byte _mode, const char *ssid, const char *pass){
+bool initWiFi(byte _mode, const char *ssid, const char *pass){
     byte ei = 0;
 
     sel_mode(_mode);
@@ -43,7 +48,7 @@ bool connectToWiFi(byte _mode, const char *ssid, const char *pass){
     return 1;
 }
 
-bool connectToWiFiSc(byte _mode, const char *ssid, const char *pass, const char *host, const char *key){
+bool initWiFiSc(byte _mode, const char *ssid, const char *pass, const char *host, const char *key){
     byte ei = 0;
 
     sel_mode(_mode);
