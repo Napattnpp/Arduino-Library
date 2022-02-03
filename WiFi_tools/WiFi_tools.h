@@ -1,4 +1,4 @@
-/*! v.0.0.3d5 !*/
+/*! v.0.0.4d3 !*/
 
 /*
 *  #include <WiFi.h>
@@ -13,68 +13,63 @@ void sel_mode(byte _mode){
     else if (_mode == 3){WiFi.mode(WIFI_AP_STA); Serial.println("WIFI_AP_STA");}
 }
 
-bool initWiFi(byte _mode, const char *ssid, const char *pass){
+byte ctf(byte _begin, const char *ssid, const char *pass){
     byte ei = 0;
 
-    sel_mode(_mode);
-    Serial.print("SSID: ");
-    Serial.println(ssid);
-
-    Serial.print("Password: ");
-    Serial.println(pass);
-
-    WiFi.begin(ssid, pass);
+    Serial.print("Begin: ");
+    (!_begin) ? Serial.println("Normal") : Serial.println("softAP");
     Serial.print("\nConnecting to ");
     Serial.println(ssid);
-    while (WiFi.status() != WL_CONNECTED){
-        Serial.print(".");
-        delay(500);
-        ei++;
 
-        //time out = 5 secound
-        if (ei == 10){
-            WiFi.disconnect();
-            Serial.print("\nCan't connect to ");
-            Serial.println(ssid);
+    if (!_begin){
+        WiFi.begin(ssid, pass);
+        while (WiFi.status() != WL_CONNECTED){
+            Serial.print(".");
+            delay(500);
+            ei++;
 
-            return 0;
+            //time out = 5 secound
+            if (ei == 10){
+                WiFi.disconnect();
+                Serial.print("\nCan't connect to ");
+                Serial.println(ssid);
+
+                return 0;
+            }
         }
     }
+    else{
+        WiFi.softAP(ssid, pass);
+    }
+}
+
+void debug(byte _begin, const char *ssid, const char *pass){
+    Serial.print("SSID: ");
+    Serial.println(ssid);
+    Serial.print("Password: ");
+    Serial.println(pass);
+}
+
+/*----------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+bool initWiFi(byte _mode, byte _begin, const char *ssid, const char *pass){
+    sel_mode(_mode);
+    debug(_begin, ssid, pass);
+    ctf(_begin, ssid, pass);
     Serial.print("\nConnected to ");
     Serial.println(WiFi.SSID());
     Serial.print("IP address: ");
     Serial.println(WiFi.localIP());
+    Serial.print("AP IP address: ");
+    Serial.println(WiFi.softAPIP());
 
     return 1;
 }
 
-bool initWiFiSc(byte _mode, const char *ssid, const char *pass, const char *host, const char *key){
-    byte ei = 0;
-
+bool initWiFiSc(byte _mode, byte _begin, const char *ssid, const char *pass, const char *host, const char *key){
     sel_mode(_mode);
-    Serial.print("SSID: ");
-    Serial.println(ssid);
-
-    Serial.print("Password: ");
-    Serial.println(pass);
-
-    WiFi.begin(ssid, pass);
-    Serial.print("\nConnecting to ");
-    Serial.println(ssid);
-    while (WiFi.status() != WL_CONNECTED){
-        Serial.print(".");
-        delay(500);
-        ei++;
-
-        //time out = 5 secound
-        if (ei == 10){
-            WiFi.disconnect();
-            Serial.print("\nCan't connect to ");
-            Serial.println(ssid);
-
-            return 0;
-        }
-    }
+    debug(_begin, ssid, pass);
+    ctf(_begin, ssid, pass);
     HTTPClient http;
 
     Serial.print("[HTTP] begin...\n");
