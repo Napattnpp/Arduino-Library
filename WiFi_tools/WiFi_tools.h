@@ -1,11 +1,11 @@
-/*! v.0.0.4d3 !*/
+/*! v.0.4.4 !*/
 
 /*
 *  #include <WiFi.h>
 *  #include <HTTPClient.h>
 */
 
-void sel_mode(byte _mode){
+void sel_mode(uint8_t _mode){
     Serial.print("WiFi mode: ");
     if (_mode == 0){Serial.println("Not define");}
     else if (_mode == 1){WiFi.mode(WIFI_STA); Serial.println("WIFI_STA");}
@@ -13,8 +13,8 @@ void sel_mode(byte _mode){
     else if (_mode == 3){WiFi.mode(WIFI_AP_STA); Serial.println("WIFI_AP_STA");}
 }
 
-byte ctf(byte _begin, const char *ssid, const char *pass){
-    byte ei = 0;
+uint8_t ctf(uint8_t _begin, const char *ssid, const char *pass){
+    uint8_t ei = 0;
 
     Serial.print("Begin: ");
     (!_begin) ? Serial.println("Normal") : Serial.println("softAP");
@@ -43,7 +43,7 @@ byte ctf(byte _begin, const char *ssid, const char *pass){
     }
 }
 
-void debug(byte _begin, const char *ssid, const char *pass){
+void debug(uint8_t _begin, const char *ssid, const char *pass){
     Serial.print("SSID: ");
     Serial.println(ssid);
     Serial.print("Password: ");
@@ -52,7 +52,7 @@ void debug(byte _begin, const char *ssid, const char *pass){
 
 /*----------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-bool initWiFi(byte _mode, byte _begin, const char *ssid, const char *pass){
+bool initWiFi(uint8_t _mode, uint8_t _begin, const char *ssid, const char *pass){
     sel_mode(_mode);
     debug(_begin, ssid, pass);
     ctf(_begin, ssid, pass);
@@ -66,7 +66,7 @@ bool initWiFi(byte _mode, byte _begin, const char *ssid, const char *pass){
     return 1;
 }
 
-bool initWiFiSc(byte _mode, byte _begin, const char *ssid, const char *pass, const char *host, const char *key){
+bool initWiFiSc(uint8_t _mode, uint8_t _begin, const char *ssid, const char *pass, const char *host, const char *key){
     sel_mode(_mode);
     debug(_begin, ssid, pass);
     ctf(_begin, ssid, pass);
